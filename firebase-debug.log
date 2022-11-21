@@ -1,0 +1,21 @@
+[debug] [2022-11-16T19:23:14.525Z] ----------------------------------------------------------------------
+[debug] [2022-11-16T19:23:14.527Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\awsom\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-11-16T19:23:14.527Z] CLI Version:   11.16.1
+[debug] [2022-11-16T19:23:14.527Z] Platform:      win32
+[debug] [2022-11-16T19:23:14.527Z] Node Version:  v16.18.0
+[debug] [2022-11-16T19:23:14.528Z] Time:          Wed Nov 16 2022 11:23:14 GMT-0800 (Pacific Standard Time)
+[debug] [2022-11-16T19:23:14.528Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-11-16T19:23:14.534Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-11-16T19:23:14.534Z] > authorizing via signed-in user (awsomeleodai@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\awsom\Documents\GitHub\cmsi2021-hw4
+

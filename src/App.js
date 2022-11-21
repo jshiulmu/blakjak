@@ -9,6 +9,8 @@ import {
 export default function App() {
   const user = useAuthentication();
 
+  //Button in header
+
   return (
     <div className="App">
       <header className="App-header">{!user ? <SignIn /> : <SignOut />}</header>

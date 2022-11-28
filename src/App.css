@@ -50,7 +50,7 @@ header {
   padding: 20px 5px;
   font-family: sans-serif, "Courier New", monospace;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 35px;
 }
 
 form {
@@ -74,7 +74,7 @@ article {
 
 mainArticle {
   height: 100%;
-  padding: 15px;
+  /*padding: 15px;*/
   background: linear-gradient(to right, lightblue, rgb(110, 156, 110));
 }
 
@@ -107,3 +107,6 @@ article .body {
   padding: 5px;
 }
 
+button {
+  padding: 15px;
+}

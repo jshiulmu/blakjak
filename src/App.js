@@ -13,8 +13,8 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      //Api Call
-      //set variable to deck id
+      fetch(https://www.deckofcardsapi.com/api/deck/new/)
+        //finish later
     }
   }, [user]);
 

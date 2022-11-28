@@ -13,7 +13,14 @@ export default function App() {
 
   return (
     <div className="App">
-      <header className="App-header">{!user ? <SignIn /> : <SignOut />}</header>
+      <header>
+        Blackjack
+        {!user ? <SignIn /> : <SignOut />}
+      </header>
+      <sideBar>
+      </sideBar>
+      <mainArticle>
+      </mainArticle>
     </div>
   );
 }

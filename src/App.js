@@ -24,7 +24,10 @@ export default function App() {
         <div><button type="button" onclick="window.close()">Exit</button></div>
       </sideBar>
       <mainArticle>
-        <img src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg" alt="mainImage"></img>
+        <img
+          src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg"
+          alt="mainImage"
+        ></img>
       </mainArticle>
     </div>
   );

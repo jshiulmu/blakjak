@@ -6,11 +6,11 @@ import {
   useAuthentication,
 } from "../src/services/authService";
 
+
 export default function App() {
   const user = useAuthentication();
 
   //Button in header
-
   return (
     <div className="App">
       <header>
@@ -21,7 +21,7 @@ export default function App() {
         <div><button type="button">Play</button></div>
         <div><button type="button">Settings</button></div>
         <div><button type="button">Leaderboards</button></div>
-        <div><button type="button">Exit</button></div>
+        <div><button type="button" onclick="window.close()">Exit</button></div>
       </sideBar>
       <mainArticle>
         <img src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg" alt="mainImage"></img>

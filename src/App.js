@@ -6,7 +6,6 @@ import {
   useAuthentication,
 } from "../src/services/authService";
 
-
 export default function App() {
   const user = useAuthentication();
 
@@ -18,10 +17,25 @@ export default function App() {
         {!user ? <SignIn /> : <SignOut />}
       </header>
       <sideBar>
-        <div><button type="button">Play</button></div>
-        <div><button type="button">Settings</button></div>
-        <div><button type="button">Leaderboards</button></div>
-        <div><button type="button" onclick="window.close()">Exit</button></div>
+        <div>
+          <button type="button">Play</button>
+        </div>
+        <div>
+          <button type="button">Settings</button>
+        </div>
+        <div>
+          <button type="button">Leaderboards</button>
+        </div>
+        <div>
+          <button
+            type="button"
+            onclick={() => {
+              window.close();
+            }}
+          >
+            Exit
+          </button>
+        </div>
       </sideBar>
       <mainArticle>
         <img

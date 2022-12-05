@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import { useEffect, useState } from "react";
 import "./App.css";
+import Game from "./Game.js";
 import {
   SignIn,
   SignOut,
@@ -14,8 +15,9 @@ export default function App() {
 
   //Button in header
   return playing ? (
-    <div className="Game"></div>
+    <Game user={user} />
   ) : (
+    //WELCOME SCREEN
     <div className="App">
       <header>
         Blackjack

@@ -9,8 +9,12 @@ import {
 export default function App() {
   const user = useAuthentication();
 
+  const [playing, setPlaying] = useState(false);
+
   //Button in header
-  return (
+  return playing ? (
+    <div className="Game"></div>
+  ) : (
     <div className="App">
       <header>
         Blackjack

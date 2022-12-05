@@ -1,6 +1,5 @@
 import logo from "./logo.svg";
 import { useEffect, useState } from "react";
-
 import "./App.css";
 import {
   SignIn,
@@ -24,18 +23,27 @@ export default function App() {
       </header>
       <sideBar>
         <div>
-          <button type="button">Play</button>
+          <button
+            className="button"
+            onClick={() => {
+              setPlaying(true);
+              console.log("PLAYING");
+            }}
+          >
+            Play
+          </button>
         </div>
         <div>
-          <button type="button">Settings</button>
+          <button className="button">Settings</button>
         </div>
         <div>
-          <button type="button">Leaderboards</button>
+          <button className="button">Leaderboards</button>
         </div>
         <div>
           <button
-            type="button"
-            onclick={() => {
+            className="button"
+            onClick={() => {
+              console.log("EXITING");
               window.close();
             }}
           >

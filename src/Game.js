@@ -6,8 +6,8 @@ import App from './App'
 
 export default function Game(user) {
     const [playing, setPlaying] = useState(true)
-    const [playerHand, setPlayerHand] = useState(0)
-    const [dealerHand, setDealerHand] = useState(0)
+    const [playerHand, setPlayerHand] = useState([])
+    const [dealerHand, setDealerHand] = useState([])
     const [gameOver, setGameOver] = useState(false)
     const [deckID, setdeckID] = useState('')
     function fetchDeck() {
@@ -25,6 +25,27 @@ export default function Game(user) {
             .then((deck) => setdeckID(deck.deck_id))
             .catch(() => setdeckID(null))
         console.log(deckID)
+        initialDeal()
+    }
+    function initialDeal() {
+        const base = ''
+        const requestURL = base.concat(
+            'https://www.deckofcardsapi.com/api/deck/',
+            deckID,
+            '/draw/?count=2'
+        )
+        fetch(requestURL)
+            .then((response) => {
+                if (response.status < 400 && response.status >= 200) {
+                    return response.json()
+                } else {
+                    console.log(response.status)
+                    throw new Error()
+                }
+            })
+            .then((cardsList) => setPlayerHand(cardsList.cards))
+            .catch(() => setdeckID(null))
+        console.log(playerHand)
     }
 
     function playerHit() {
@@ -81,13 +102,13 @@ export default function Game(user) {
                 </header>
                 <sideBar>
                     <div>
-                        <button className="hit_button" onClick={playerHit}>
-                            Hit
+                        <button className="CHECK_API" onClick={fetchDeck}>
+                            Deal
                         </button>
                     </div>
                     <div>
-                        <button className="CHECK_API" onClick={fetchDeck}>
-                            CHECK API
+                        <button className="hit_button" onClick={playerHit}>
+                            Hit
                         </button>
                     </div>
                     <div>

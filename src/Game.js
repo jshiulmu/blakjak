@@ -23,7 +23,7 @@ export default function Game(user) {
             })
             .then((deck) => {
                 setdeckID(deck.deck_id)
-                return deck.deck_id
+                return deck.deck_id //WHEN RETURNED LIKE THIS, THIS RETURN VALUE IS PASSED AS PARAMETER TO NEXT FUNCTION - TOAL
             })
             .then(shuffleDeck)
     }

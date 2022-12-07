@@ -11,6 +11,7 @@ export default function Game(user) {
     const [gameOver, setGameOver] = useState(false)
     const [deckID, setdeckID] = useState('')
     function fetchDeck() {
+        //DEAL DECK_ID IS NULL ON FIRST DEAL, AND ALWAYS ID BEHIND THE STATE VARIABLE
         const requestURL = 'https://www.deckofcardsapi.com/api/deck/new/'
         return fetch(requestURL)
             .then((response) => {

@@ -1,38 +1,39 @@
 import { getDefaultEmulatorHost } from '@firebase/util'
-import { disableNetwork } from 'firebase/firestore'
+import { connectFirestoreEmulator, disableNetwork } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { SignIn, SignOut, useAuthentication } from '../src/services/authService'
 import App from './App'
 
 export default function Game(user) {
     const [playing, setPlaying] = useState(true)
-    const [playerHand, setPlayerHand] = useState([])
-    const [dealerHand, setDealerHand] = useState([])
+    const [playerHand, setPlayerHand] = useState(null)
+    const [dealerHand, setDealerHand] = useState(null)
     const [gameOver, setGameOver] = useState(false)
     const [deckID, setdeckID] = useState('')
     function fetchDeck() {
-        const requestURL =
-            'https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1'
-        fetch(requestURL)
+        const requestURL = 'https://www.deckofcardsapi.com/api/deck/new/'
+        return fetch(requestURL)
             .then((response) => {
                 if (response.status < 400 && response.status >= 200) {
                     return response.json()
                 } else {
-                    console.log(response.status)
-                    throw new Error()
+                    console.log(`NOOOOOOOOOOOO ${response.status}`)
                 }
             })
-            .then((deck) => setdeckID(deck.deck_id))
-            .catch(() => setdeckID(null))
-        console.log(deckID)
-        initialDeal()
+            .then((deck) => {
+                setdeckID(deck.deck_id)
+                return deck.deck_id
+            })
+            .then(shuffleDeck)
     }
-    function initialDeal() {
+
+    function shuffleDeck(deckId_shuffle) {
         const base = ''
+        console.log(`Trying to shuffle with deck id ${deckID}`)
         const requestURL = base.concat(
             'https://www.deckofcardsapi.com/api/deck/',
-            deckID,
-            '/draw/?count=2'
+            deckId_shuffle,
+            '/shuffle/'
         )
         fetch(requestURL)
             .then((response) => {
@@ -43,9 +44,34 @@ export default function Game(user) {
                     throw new Error()
                 }
             })
-            .then((cardsList) => setPlayerHand(cardsList.cards))
-            .catch(() => setdeckID(null))
-        console.log(playerHand)
+            .then((deck) => {
+                setdeckID(deck.deck_id)
+                return deck.deck_id
+            })
+            .then(initialDeal)
+    }
+    function initialDeal(deckId_initial_deal) {
+        const base = ''
+        const requestURL = base.concat(
+            'https://www.deckofcardsapi.com/api/deck/',
+            deckId_initial_deal,
+            '/draw/?count=4'
+        )
+        return fetch(requestURL)
+            .then((response) => {
+                if (response.status < 400 && response.status >= 200) {
+                    return response.json()
+                } else {
+                    console.log(response.status)
+                    throw new Error()
+                }
+            })
+            .then((cardsList) => setDealerHand(cardsList)) //SET TO FIRST TWO CARDS IN LIST --> HOW TO INDEX LIST IN REACT?
+            .then((cardsList) => setPlayerHand(cardsList)) //SET TO SECOND TWO CARDS IN LIST
+            .then(() => {
+                console.log('player hand = ', playerHand)
+                console.log('dealer hand = ', dealerHand)
+            })
     }
 
     function playerHit() {
@@ -100,7 +126,16 @@ export default function Game(user) {
                     Blackjack
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
-                <button className="hit_button" onClick={playerHit}>
+                <button className="hit_button" onClick={fetchDeck}>
+                    Deal
+                </button>
+                <button
+                    className="hit_button"
+                    onClick={(event) => {
+                        playerHit()
+                        console.log(`DeckID = ${deckID}`)
+                    }}
+                >
                     Hit
                 </button>
                 <button className="stand_button" onClick={stand}>

@@ -1,7 +1,7 @@
 import { getDefaultEmulatorHost } from '@firebase/util'
 import { useEffect, useState } from 'react'
 import { SignIn, SignOut, useAuthentication } from '../src/services/authService'
-import App from './App'
+import App from './App.js'
 
 export default function Game(user) {
     const [playing, setPlaying] = useState(true)
@@ -56,47 +56,28 @@ export default function Game(user) {
                 </button>
             </div>
         ) : (
-            <div className="App">
+            <div className="Game">
                 <header>
                     Blackjack
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
-                <sideBar>
-                    <div>
-                        <button className="hit_button" onClick={playerHit}>
-                            Hit
-                        </button>
-                    </div>
-                    <div>
-                        <button className="stand_button" onClick={stand}>
-                            Stand
-                        </button>
-                    </div>
-                    <div>
-                        <button className="button">Settings</button>
-                    </div>
-                    <div>
-                        <button className="button">Leaderboards</button>
-                    </div>
-                    <div>
-                        <button
-                            className="button"
-                            onClick={() => {
-                                console.log('EXITING')
-                                setPlaying(false)
-                            }}
-                        >
-                            Return to Menu
-                        </button>
-                    </div>
-                </sideBar>
-                <mainArticle>
-                    <img
-                        src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg"
-                        alt="mainImage"
-                    ></img>
+                <button className="hit_button" onClick={playerHit}>
+                    Hit
+                </button>
+                <button className="stand_button" onClick={stand}>
+                    Stand
+                </button>
+                <button
+                    className="return_button"
+                    onClick={() => {
+                        console.log('EXITING')
+                        setPlaying(false)
+                    }}>
+                    Return to Menu
+                </button>
+                <div className="PlayerInfo">
                     Player Hand:
-                </mainArticle>
+                </div>
             </div>
         )
     ) : (

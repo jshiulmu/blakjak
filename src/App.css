@@ -112,11 +112,31 @@ article .body {
 }
 
 .hit_button {
+    right: 760px;
+    bottom: 10px;
+    position: fixed;
     padding: 16px;
     background-color: lightcoral;
 }
 
 .stand_button {
+    bottom: 10px;
+    right: 680px;
+    position: fixed;
     padding: 16px;
     background-color: lightgreen;
+}
+
+.return_button {
+    right: 0px;
+    position: fixed;
+    padding: 16px;
+    background-color: lightseagreen;
+}
+
+.PlayerInfo {
+    background-color:rgb(110, 156, 110);
+    position: fixed;
+    bottom: 100px;
+    right: 700px;
 }

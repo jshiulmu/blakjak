@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import { useEffect, useState } from "react";
-import "./App.css";
 import Game from "./Game.js";
+import "./App.css";
 import {
   SignIn,
   SignOut,

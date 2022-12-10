@@ -165,6 +165,7 @@ export default function Game(user) {
         let PLAYER = 'PLAYER WINS'
         let DEALER = 'DEALER WINS'
         if (player_sum > 21) {
+            //PLAYER BUST
             if (playerAceCount_regular > 0) {
                 player_sum -= 10
                 playerAceCount_regular -= 1
@@ -177,6 +178,7 @@ export default function Game(user) {
             }
         }
         if (dealer_sum > 21) {
+            //DEALER BUST
             if (dealerAceCount_regular > 0) {
                 dealer_sum -= 10
                 dealerAceCount_regular -= 1
@@ -188,22 +190,25 @@ export default function Game(user) {
                 return true
             }
         }
-        if (userStanding && dealer_sum === 21) {
+        if (userStanding && dealer_sum > player_sum) {
+            gameOver_regular = true
+            setGameOver(gameOver_regular)
+            console.log(DEALER)
+            return true
+        }
+
+        if (dealer_sum === 21) {
+            //DEALER BLACKJACK
             gameOver_regular = true
             setGameOver(gameOver_regular)
             console.log(DEALER)
             return true
         }
         if (player_sum === 21) {
+            //PLAYER BLACKJACK
             gameOver_regular = true
             setGameOver(gameOver_regular)
             console.log(PLAYER)
-            return true
-        }
-        if (userStanding && player_sum < dealer_sum) {
-            gameOver_regular = true
-            setGameOver(gameOver_regular)
-            console.log(DEALER)
             return true
         }
         console.log('player sum : ', player_sum)

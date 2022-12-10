@@ -1,12 +1,8 @@
-import logo from "./logo.svg";
-import { useEffect, useState } from "react";
-import Game from "./Game.js";
-import "./App.css";
-import {
-  SignIn,
-  SignOut,
-  useAuthentication,
-} from "../src/services/authService";
+import logo from './logo.svg'
+import { useEffect, useState } from 'react'
+import Game from './Game.js'
+import './App.css'
+import { SignIn, SignOut, useAuthentication } from '../src/services/authService'
 
 export default function App() {
     const user = useAuthentication()
@@ -34,9 +30,6 @@ export default function App() {
                     >
                         Play
                     </button>
-                </div>
-                <div>
-                    <button className="button">Settings</button>
                 </div>
                 <div>
                     <button className="button">Leaderboards</button>

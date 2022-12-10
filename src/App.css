@@ -112,17 +112,13 @@ article .body {
 }
 
 .hit_button {
-    right: 760px;
-    bottom: 10px;
-    position: fixed;
+    text-align: center;
     padding: 16px;
     background-color: lightcoral;
 }
 
 .stand_button {
-    bottom: 10px;
-    right: 680px;
-    position: fixed;
+    text-align: center;
     padding: 16px;
     background-color: lightgreen;
 }
@@ -136,7 +132,24 @@ article .body {
 
 .PlayerInfo {
     background-color:rgb(110, 156, 110);
-    position: fixed;
-    bottom: 100px;
-    right: 700px;
+    text-align: center;
+}
+
+.DealerCards {
+    width: 170px;
+    height: 236px;
+}
+
+.center {
+    text-align: center;
+}
+
+.PlayerCards {
+    width: 170px;
+    height: 236px;
+}
+
+.gap {
+    display: flex;
+    gap: 25px;
 }

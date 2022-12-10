@@ -131,18 +131,6 @@ export default function Game(user) {
                     Deal
                 </button>
                 <button
-                    className="hit_button"
-                    onClick={(event) => {
-                        playerHit()
-                        console.log(`DeckID = ${deckID}`)
-                    }}
-                >
-                    Hit
-                </button>
-                <button className="stand_button" onClick={stand}>
-                    Stand
-                </button>
-                <button
                     className="return_button"
                     onClick={() => {
                         console.log('EXITING')
@@ -151,7 +139,24 @@ export default function Game(user) {
                 >
                     Return to Menu
                 </button>
+                <div className="center">
+                <img className="DealerCards" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="backOfCard"></img>
+                <img className="DealerCards" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="backOfCard"></img>
+                </div>
+                <div className="gap"></div>
+                <div className="center">
+                <img className="PlayerCards" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="backOfCard"></img>
+                <img className="PlayerCards" src="https://opengameart.org/sites/default/files/card%20back%20red.png" alt="backOfCard"></img>
+                </div>
                 <div className="PlayerInfo">Player Hand:</div>
+                <div className="center">
+                <button className="hit_button" onClick={playerHit}>
+                    Hit
+                </button>
+                <button className="stand_button" onClick={stand}>
+                    Stand
+                </button>
+                </div>
             </div>
         )
     ) : (

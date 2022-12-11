@@ -191,6 +191,8 @@ export default function Game(user) {
             }
         }
         if (userStanding && dealer_sum > player_sum) {
+            //DOES NOT WORK
+            //DEALER SHOULD STAND IF BEATEN USER
             gameOver_regular = true
             setGameOver(gameOver_regular)
             console.log(DEALER)

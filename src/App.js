@@ -14,6 +14,7 @@ export default function App() {
         <Game user={user} />
     ) : (
         //WELCOME SCREEN
+        
         <div className="App">
             <header>
                 Blackjack
@@ -46,12 +47,10 @@ export default function App() {
                     </button>
                 </div>
             </sideBar>
-            <mainArticle>
-                <img
-                    src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg"
-                    alt="mainImage"
-                ></img>
-            </mainArticle>
+            <img className="titleImg"
+                src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg"
+                alt="mainImage"
+            ></img>
         </div>
     )
 }

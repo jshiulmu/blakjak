@@ -285,7 +285,6 @@ export default function Game(user) {
                     Blackjack
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
-                <background>
                     <button
                         className="hit_button"
                         onClick={(event) => {
@@ -304,32 +303,22 @@ export default function Game(user) {
                         Return to Menu
                     </button>
                     <div className="center">
-                        <img
-                            className="DealerCards"
-                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                            alt="backOfCard"
-                        ></img>
-                        <img
-                            className="DealerCards"
-                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                            alt="backOfCard"
-                        ></img>
+                        {!dealerHand ? null : dealerHand.map((card) => {
+                            return(
+                                <img className="DealerCards" src={card.image} alt="" />
+                            )
+                        })}
                     </div>
                     <p></p>
                     <div>&nbsp;</div>
                     <p></p>
                     <div>&nbsp;</div>
                     <div className="center">
-                        <img
-                            className="PlayerCards"
-                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                            alt="backOfCard"
-                        ></img>
-                        <img
-                            className="PlayerCards"
-                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                            alt="backOfCard"
-                        ></img>
+                        {!playerHand ? null : playerHand.map((card) => {
+                            return(
+                                <img className="PlayerCards" src={card.image} alt="" />
+                            )
+                        })}
                     </div>
                     <p></p>
                     <div className="PlayerInfo">Player Hand:</div>
@@ -346,7 +335,6 @@ export default function Game(user) {
                             Stand
                         </button>
                     </div>
-                </background>
             </div>
         )
     ) : (

@@ -10,10 +10,13 @@ export default function Game(user) {
     const [playerHand, setPlayerHand] = useState(null)
     const [dealerHand, setDealerHand] = useState(null)
     const [playerAceCount, setPlayerAceCount] = useState(0)
+    const [playerAsubbed, setPlayerASubbed] = useState(0)
+    const [dealerAsubbed, setDealerASubbed] = useState(0)
     const [dealerAceCount, setDealerAceCount] = useState(0)
     const [gameOver, setGameOver] = useState(false)
     const [userStanding, setUserStanding] = useState(false)
     const [deckID, setdeckID] = useState('')
+    const [gameOverMessage, setGameOverMessage] = useState('')
     let deckId_regular = ''
     let playerHand_regular = null
     let dealerHand_regular = null
@@ -123,6 +126,11 @@ export default function Game(user) {
                 setPlayerAceCount(playerAceCount_regular)
                 gameUpdate(playerHand_regular, dealerHand)
                 console.log(playerHand)
+                if (findCardSum(playerHand, 'P') > 21) {
+                    setGameOver(true)
+                    console.log('PLAYER BUST HERE')
+                    setGameOverMessage('PLAYER HAS BUSTED')
+                }
             })
     }
 
@@ -151,19 +159,30 @@ export default function Game(user) {
                     dealerAceCount_regular = checkAces(dealerHand_regular)
                     setDealerAceCount(dealerAceCount_regular)
                     if (!gameUpdate(playerHand, dealerHand_regular)) {
-                        dealerHit(dealerHand_regular)
+                        if (findCardSum(dealerHand) > 21) {
+                            setGameOver(true)
+                            console.log('HERE, DEALER LOST')
+                        } else if (
+                            findCardSum(dealerHand) > findCardSum(playerHand)
+                        ) {
+                            setGameOver(true)
+                            console.log('DEALER HAS BEATEN THE USER, HERE HERE')
+                        } else {
+                            dealerHit(dealerHand_regular)
+                        }
                     }
                 })
         } else if (findCardSum(dealerHand) > findCardSum(playerHand)) {
             console.log('DEALER SHOULD BE STANDING')
             gameUpdate(playerHand, dealerHand_regular)
             setGameOver(true)
+            setGameOverMessage('DEALER HAS BEATEN THE USER')
         }
     }
 
     function gameUpdate(player, dealer) {
-        let player_sum = findCardSum(player)
-        let dealer_sum = findCardSum(dealer)
+        let player_sum = findCardSum(player, 'P')
+        let dealer_sum = findCardSum(dealer, 'D')
         let PLAYER = 'PLAYER WINS'
         let DEALER = 'DEALER WINS'
         console.log('GAME UPDATE:')
@@ -175,10 +194,12 @@ export default function Game(user) {
                 player_sum -= 10
                 playerAceCount_regular -= 1
                 setPlayerAceCount(playerAceCount_regular)
+                setPlayerASubbed(playerAsubbed + 1)
             } else {
                 gameOver_regular = true
                 setGameOver(gameOver_regular)
                 console.log(DEALER)
+                setGameOverMessage('PLAYER BUST, DEALER WINS')
                 return true
             }
         }
@@ -188,10 +209,12 @@ export default function Game(user) {
                 dealer_sum -= 10
                 dealerAceCount_regular -= 1
                 setDealerAceCount(dealerAceCount_regular)
+                setDealerASubbed(dealerAsubbed + 1)
             } else {
                 gameOver_regular = true
                 setGameOver(gameOver_regular)
                 console.log(PLAYER)
+                setGameOverMessage('DEALER BUST, PLAYER WINS')
                 return true
             }
         }
@@ -200,7 +223,8 @@ export default function Game(user) {
             //DEALER SHOULD STAND IF BEATEN USER
             gameOver_regular = true
             setGameOver(gameOver_regular)
-            console.log(DEALER)
+            console.log('THIS IS WORKING')
+            setGameOverMessage('DEALER WINS, DEALER STANDS W/ MORE THAN PLAYER')
             return true
         }
 
@@ -209,6 +233,7 @@ export default function Game(user) {
             gameOver_regular = true
             setGameOver(gameOver_regular)
             console.log(DEALER)
+            setGameOverMessage('DEALER BLACKJACK')
             return true
         }
         if (player_sum === 21) {
@@ -216,6 +241,7 @@ export default function Game(user) {
             gameOver_regular = true
             setGameOver(gameOver_regular)
             console.log(PLAYER)
+            setGameOverMessage('PLAYER BLACKJACK')
             return true
         }
         console.log('player sum : ', player_sum)
@@ -235,7 +261,7 @@ export default function Game(user) {
         return ace_count
     }
 
-    function findCardSum(userHand_json) {
+    function findCardSum(userHand_json, player) {
         var card_sum = 0
         for (let i = 0; i < userHand_json.length; i++) {
             if (
@@ -245,7 +271,13 @@ export default function Game(user) {
             ) {
                 card_sum += 10
             } else if (userHand_json[i].value === 'ACE') {
-                card_sum += 11
+                if (player === 'P' && playerAsubbed > 0) {
+                    card_sum += playerAsubbed * 1
+                } else if (player === 'D' && dealerAsubbed > 0) {
+                    card_sum += dealerAsubbed * 1
+                } else {
+                    card_sum += 11
+                }
             } else {
                 card_sum += parseInt(userHand_json[i].value)
             }
@@ -267,10 +299,13 @@ export default function Game(user) {
 
     return playing ? (
         gameOver ? (
-            <div className="End_Screen">
-                <header>Game Over</header>
+            <div className="Game_over">
+                <header>
+                    Blackjack
+                    {!user ? <SignIn /> : <SignOut />}
+                </header>
                 <button
-                    className="button"
+                    className="returnButton"
                     onClick={() => {
                         console.log('EXITING')
                         setPlaying(false)
@@ -278,6 +313,38 @@ export default function Game(user) {
                 >
                     Return to Menu
                 </button>
+                <div className="center">
+                    {!dealerHand
+                        ? null
+                        : dealerHand.map((card) => {
+                              return (
+                                  <img
+                                      className="DealerCards"
+                                      src={card.image}
+                                      alt=""
+                                  />
+                              )
+                          })}
+                </div>
+                <p></p>
+                <div>&nbsp;</div>
+                <p></p>
+                <div>&nbsp;</div>
+                <div className="center">
+                    {!playerHand
+                        ? null
+                        : playerHand.map((card) => {
+                              return (
+                                  <img
+                                      className="PlayerCards"
+                                      src={card.image}
+                                      alt=""
+                                  />
+                              )
+                          })}
+                </div>
+                <div className="Game_over_message">{gameOverMessage}</div>
+                <p></p>
             </div>
         ) : (
             <div className="Game">
@@ -285,56 +352,71 @@ export default function Game(user) {
                     Blackjack
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
+                <button
+                    className="hit_button"
+                    onClick={(event) => {
+                        fetchDeck()
+                    }}
+                >
+                    Deal
+                </button>
+                <button
+                    className="returnButton"
+                    onClick={() => {
+                        console.log('EXITING')
+                        setPlaying(false)
+                    }}
+                >
+                    Return to Menu
+                </button>
+                <div className="center">
+                    {!dealerHand
+                        ? null
+                        : dealerHand.map((card) => {
+                              return (
+                                  <img
+                                      className="DealerCards"
+                                      src={card.image}
+                                      alt=""
+                                  />
+                              )
+                          })}
+                </div>
+                <p></p>
+                <div>&nbsp;</div>
+                <p></p>
+                <div>&nbsp;</div>
+                <div className="center">
+                    {!playerHand
+                        ? null
+                        : playerHand.map((card) => {
+                              return (
+                                  <img
+                                      className="PlayerCards"
+                                      src={card.image}
+                                      alt=""
+                                  />
+                              )
+                          })}
+                </div>
+                <p></p>
+                <div className="PlayerInfo">
+                    Player Hand:{' '}
+                    {playerHand !== null ? findCardSum(playerHand, 'P') : 0}
+                </div>
+                <div className="PlayerButtons">
                     <button
-                        className="hit_button"
+                        className="playerHit"
                         onClick={(event) => {
-                            fetchDeck()
+                            playerHit()
                         }}
                     >
-                        Deal
+                        Hit
                     </button>
-                    <button
-                        className="returnButton"
-                        onClick={() => {
-                            console.log('EXITING')
-                            setPlaying(false)
-                        }}
-                    >
-                        Return to Menu
+                    <button className="playerStay" onClick={stand}>
+                        Stand
                     </button>
-                    <div className="center">
-                        {!dealerHand ? null : dealerHand.map((card) => {
-                            return(
-                                <img className="DealerCards" src={card.image} alt="" />
-                            )
-                        })}
-                    </div>
-                    <p></p>
-                    <div>&nbsp;</div>
-                    <p></p>
-                    <div>&nbsp;</div>
-                    <div className="center">
-                        {!playerHand ? null : playerHand.map((card) => {
-                            return(
-                                <img className="PlayerCards" src={card.image} alt="" />
-                            )
-                        })}
-                    </div>
-                    <p></p>
-                    <div className="PlayerInfo">Player Hand:</div>
-                    <div className="PlayerButtons">
-                        <button
-                            className="playerHit"
-                            onClick={(event) => {
-                                playerHit()
-                            }}
-                        >
-                            Hit
-                        </button>
-                        <button className="playerStay" onClick={stand}>
-                            Stand
-                        </button>
-                    </div>
+                </div>
             </div>
         )
     ) : (

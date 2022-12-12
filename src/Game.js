@@ -154,8 +154,10 @@ export default function Game(user) {
                         dealerHit(dealerHand_regular)
                     }
                 })
-        } else {
+        } else if (findCardSum(dealerHand) > findCardSum(playerHand)) {
+            console.log('DEALER SHOULD BE STANDING')
             gameUpdate(playerHand, dealerHand_regular)
+            setGameOver(true)
         }
     }
 
@@ -164,6 +166,9 @@ export default function Game(user) {
         let dealer_sum = findCardSum(dealer)
         let PLAYER = 'PLAYER WINS'
         let DEALER = 'DEALER WINS'
+        console.log('GAME UPDATE:')
+        console.log(`player sum`, player_sum)
+        console.log(`dealer sum`, dealer_sum)
         if (player_sum > 21) {
             //PLAYER BUST
             if (playerAceCount_regular > 0) {
@@ -281,66 +286,66 @@ export default function Game(user) {
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
                 <background>
-                <button
-                    className="hit_button"
-                    onClick={(event) => {
-                        fetchDeck()
-                    }}
-                >
-                    Deal
-                </button>
-                <button
-                    className="returnButton"
-                    onClick={() => {
-                        console.log('EXITING')
-                        setPlaying(false)
-                    }}
-                >
-                    Return to Menu
-                </button>
-                <div className="center">
-                    <img
-                        className="DealerCards"
-                        src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                        alt="backOfCard"
-                    ></img>
-                    <img
-                        className="DealerCards"
-                        src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                        alt="backOfCard"
-                    ></img>
-                </div>
-                <p></p>
-                <div>&nbsp;</div>
-                <p></p>
-                <div>&nbsp;</div>
-                <div className="center">
-                    <img
-                        className="PlayerCards"
-                        src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                        alt="backOfCard"
-                    ></img>
-                    <img
-                        className="PlayerCards"
-                        src="https://opengameart.org/sites/default/files/card%20back%20red.png"
-                        alt="backOfCard"
-                    ></img>
-                </div>
-                <p></p>
-                <div className="PlayerInfo">Player Hand:</div>
-                <div className="PlayerButtons">
                     <button
-                        className="playerHit"
+                        className="hit_button"
                         onClick={(event) => {
-                            playerHit()
+                            fetchDeck()
                         }}
                     >
-                        Hit
+                        Deal
                     </button>
-                    <button className="playerStay" onClick={stand}>
-                        Stand
+                    <button
+                        className="returnButton"
+                        onClick={() => {
+                            console.log('EXITING')
+                            setPlaying(false)
+                        }}
+                    >
+                        Return to Menu
                     </button>
-                </div>
+                    <div className="center">
+                        <img
+                            className="DealerCards"
+                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
+                            alt="backOfCard"
+                        ></img>
+                        <img
+                            className="DealerCards"
+                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
+                            alt="backOfCard"
+                        ></img>
+                    </div>
+                    <p></p>
+                    <div>&nbsp;</div>
+                    <p></p>
+                    <div>&nbsp;</div>
+                    <div className="center">
+                        <img
+                            className="PlayerCards"
+                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
+                            alt="backOfCard"
+                        ></img>
+                        <img
+                            className="PlayerCards"
+                            src="https://opengameart.org/sites/default/files/card%20back%20red.png"
+                            alt="backOfCard"
+                        ></img>
+                    </div>
+                    <p></p>
+                    <div className="PlayerInfo">Player Hand:</div>
+                    <div className="PlayerButtons">
+                        <button
+                            className="playerHit"
+                            onClick={(event) => {
+                                playerHit()
+                            }}
+                        >
+                            Hit
+                        </button>
+                        <button className="playerStay" onClick={stand}>
+                            Stand
+                        </button>
+                    </div>
                 </background>
             </div>
         )

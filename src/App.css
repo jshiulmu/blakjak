@@ -51,6 +51,7 @@ header {
     font-family: sans-serif, 'Courier New', monospace;
     font-weight: bold;
     font-size: 35px;
+    width: 99.35vw;
 }
 
 form {
@@ -123,16 +124,10 @@ article .body {
     background-color: lightgreen;
 }
 
-.return_button {
-    right: 0px;
-    position: fixed;
-    padding: 16px;
-    background-color: lightseagreen;
-}
-
 .PlayerInfo {
     background-color:rgb(110, 156, 110);
     text-align: center;
+    font-weight: bold;
 }
 
 .DealerCards {
@@ -144,6 +139,10 @@ article .body {
     text-align: center;
 }
 
+.PlayerButtons {
+    text-align: center;
+}
+
 .PlayerCards {
     width: 170px;
     height: 236px;
@@ -152,4 +151,70 @@ article .body {
 .gap {
     display: flex;
     gap: 25px;
+}
+
+background {
+    background-image: url('https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background-1024x768.jpg');
+}
+
+.playerHit {
+    text-align: center;
+    cursor: pointer;
+    padding: 16px;
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    border: 3px solid blue;
+    background-color:green;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.playerStay {
+    text-align: center;
+    cursor: pointer;
+    padding: 16px;
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    border: 3px solid purple;
+    background-color: red;
+    border-radius: 50%;
+    transition: 0.3s;
+} 
+.playerHit:hover {
+    color: #3b82f6;
+    border: 3px solid #3b82f6;
+}
+.playerStay:hover {
+    color: #3b82f6;
+    border: 3px solid #3b82f6;
+}
+.playerHit:active {
+    background-color: black;
+}
+.playerStay:active {
+    background-color: black;
+}
+
+.returnButton {
+    right: 0px;
+    position: fixed;
+    padding: 16px;
+    background-color: lightseagreen;
+    text-align: center;
+    cursor: pointer;
+    padding: 16px;
+    width: 100px;
+    height: 75px;
+    text-align: center;
+    border: 3px solid purple;
+    border-radius: 50%;
+    transition: 0.3s;
+} 
+.returnButton:hover {
+    color: #3b82f6;
+    border: 3px solid #3b82f6;
+}
+.returnButton:active {
+    background-color: black;
 }

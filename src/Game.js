@@ -110,7 +110,7 @@ export default function Game(user) {
                 if (response.status < 400 && response.status >= 200) {
                     return response.json()
                 } else {
-                    console.log(`NOOOOOOOOOOOO ${response.status}`)
+                    console.log(`NOOOOOOOOOOOO Hit ${response.status}`)
                 }
             })
             .then(
@@ -280,6 +280,7 @@ export default function Game(user) {
                     Blackjack
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
+                <background>
                 <button
                     className="hit_button"
                     onClick={(event) => {
@@ -289,7 +290,7 @@ export default function Game(user) {
                     Deal
                 </button>
                 <button
-                    className="return_button"
+                    className="returnButton"
                     onClick={() => {
                         console.log('EXITING')
                         setPlaying(false)
@@ -309,7 +310,10 @@ export default function Game(user) {
                         alt="backOfCard"
                     ></img>
                 </div>
-                <div className="gap"></div>
+                <p></p>
+                <div>&nbsp;</div>
+                <p></p>
+                <div>&nbsp;</div>
                 <div className="center">
                     <img
                         className="PlayerCards"
@@ -322,20 +326,22 @@ export default function Game(user) {
                         alt="backOfCard"
                     ></img>
                 </div>
+                <p></p>
                 <div className="PlayerInfo">Player Hand:</div>
-                <div className="center">
+                <div className="PlayerButtons">
                     <button
-                        className="hit_button"
+                        className="playerHit"
                         onClick={(event) => {
                             playerHit()
                         }}
                     >
                         Hit
                     </button>
-                    <button className="stand_button" onClick={stand}>
+                    <button className="playerStay" onClick={stand}>
                         Stand
                     </button>
                 </div>
+                </background>
             </div>
         )
     ) : (

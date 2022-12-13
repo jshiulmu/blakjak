@@ -124,7 +124,7 @@ export default function Game(user) {
                 setPlayerHand(playerHand_regular)
                 playerAceCount_regular = checkAces(playerHand_regular)
                 setPlayerAceCount(playerAceCount_regular)
-                gameUpdate(playerHand_regular, dealerHand)
+                gameUpdate(playerHand_regular, dealerHand, false)
                 console.log(playerHand)
                 if (findCardSum(playerHand, 'P') > 21) {
                     setGameOver(true)
@@ -158,7 +158,7 @@ export default function Game(user) {
                     setDealerHand(dealerHand_regular)
                     dealerAceCount_regular = checkAces(dealerHand_regular)
                     setDealerAceCount(dealerAceCount_regular)
-                    if (!gameUpdate(playerHand, dealerHand_regular)) {
+                    if (!gameUpdate(playerHand, dealerHand_regular, true)) {
                         if (findCardSum(dealerHand) > 21) {
                             setGameOver(true)
                             console.log('HERE, DEALER LOST')
@@ -174,13 +174,13 @@ export default function Game(user) {
                 })
         } else if (findCardSum(dealerHand) > findCardSum(playerHand)) {
             console.log('DEALER SHOULD BE STANDING')
-            gameUpdate(playerHand, dealerHand_regular)
+            gameUpdate(playerHand, dealerHand_regular, true)
             setGameOver(true)
             setGameOverMessage('DEALER HAS BEATEN THE USER')
         }
     }
 
-    function gameUpdate(player, dealer) {
+    function gameUpdate(player, dealer, local_userStanding) {
         let player_sum = findCardSum(player, 'P')
         let dealer_sum = findCardSum(dealer, 'D')
         let PLAYER = 'PLAYER WINS'
@@ -191,10 +191,21 @@ export default function Game(user) {
         if (player_sum > 21) {
             //PLAYER BUST
             if (playerAceCount_regular > 0) {
-                player_sum -= 10
-                playerAceCount_regular -= 1
+                for (let i = 0; i < playerAceCount_regular; i++) {
+                    if (player_sum > 21) {
+                        player_sum -= 10
+                    } else {
+                        break
+                    }
+                }
                 setPlayerAceCount(playerAceCount_regular)
-                setPlayerASubbed(playerAsubbed + 1)
+                if (player_sum > 21) {
+                    gameOver_regular = true
+                    setGameOver(gameOver_regular)
+                    console.log(DEALER)
+                    setGameOverMessage('PLAYER BUST, DEALER WINS')
+                    return true
+                }
             } else {
                 gameOver_regular = true
                 setGameOver(gameOver_regular)
@@ -204,12 +215,24 @@ export default function Game(user) {
             }
         }
         if (dealer_sum > 21) {
+            console.log('ace count: ', dealerAceCount_regular)
             //DEALER BUST
             if (dealerAceCount_regular > 0) {
-                dealer_sum -= 10
-                dealerAceCount_regular -= 1
+                for (let i = 0; i < dealerAceCount_regular; i++) {
+                    if (dealer_sum > 21) {
+                        dealer_sum -= 10
+                    } else {
+                        break
+                    }
+                }
+                if (dealer_sum > 21) {
+                    gameOver_regular = true
+                    setGameOver(gameOver_regular)
+                    console.log(PLAYER)
+                    setGameOverMessage('DEALER BUST, PLAYER WINS')
+                    return true
+                }
                 setDealerAceCount(dealerAceCount_regular)
-                setDealerASubbed(dealerAsubbed + 1)
             } else {
                 gameOver_regular = true
                 setGameOver(gameOver_regular)
@@ -218,9 +241,11 @@ export default function Game(user) {
                 return true
             }
         }
-        if (userStanding && dealer_sum > player_sum) {
+        console.log('User Standing: ', local_userStanding)
+        if (local_userStanding && dealer_sum > player_sum) {
             //DOES NOT WORK
             //DEALER SHOULD STAND IF BEATEN USER
+            console.log('GameUpdate_LOSS')
             gameOver_regular = true
             setGameOver(gameOver_regular)
             console.log('THIS IS WORKING')
@@ -271,13 +296,7 @@ export default function Game(user) {
             ) {
                 card_sum += 10
             } else if (userHand_json[i].value === 'ACE') {
-                if (player === 'P' && playerAsubbed > 0) {
-                    card_sum += playerAsubbed * 1
-                } else if (player === 'D' && dealerAsubbed > 0) {
-                    card_sum += dealerAsubbed * 1
-                } else {
-                    card_sum += 11
-                }
+                card_sum += 11
             } else {
                 card_sum += parseInt(userHand_json[i].value)
             }

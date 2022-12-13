@@ -65,16 +65,17 @@ export function SignIn() {
         <button
             onClick={(event) => {
                 signInWithPopup(auth, new GoogleAuthProvider())
-
-                const userRef = db.collection('players').doc(user)
-                userRef.get().then((doc) => {
-                    if (doc.exists) {
-                        console.log('User Exists')
-                    } else {
-                        console.log('Creating User')
-                        createUser()
-                    }
-                })
+                createUser()
+                console.log('CREATING USER')
+                // const userRef = db.collection('players').doc(user)
+                // userRef.get().then((doc) => {
+                //     if (doc.exists) {
+                //         console.log('User Exists')
+                //     } else {
+                //         console.log('Creating User')
+                //         createUser()
+                //     }
+                // })
             }}
         >
             Sign In

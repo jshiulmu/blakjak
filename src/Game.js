@@ -2,7 +2,8 @@ import { getDefaultEmulatorHost } from '@firebase/util'
 import { wait } from '@testing-library/user-event/dist/utils'
 import { connectFirestoreEmulator, disableNetwork } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { SignIn, SignOut, useAuthentication } from '../src/services/authService'
+import { SignOut, useAuthentication } from '../src/services/authService'
+import { SignIn } from './App.js'
 import App from './App'
 
 export default function Game(user) {

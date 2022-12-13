@@ -1,8 +1,13 @@
 import logo from './logo.svg'
 import { useEffect, useState } from 'react'
+import { db } from '../src/services/firebaseConfig.js'
 import Game from './Game.js'
 import './App.css'
-import { SignIn, SignOut, useAuthentication } from '../src/services/authService'
+import { SignOut, useAuthentication } from '../src/services/authService'
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { getDoc } from 'firebase/firestore'
+import { auth } from './services/firebaseConfig.js'
+import { createUser } from './services/userService'
 
 export default function App() {
     const user = useAuthentication()
@@ -14,7 +19,6 @@ export default function App() {
         <Game user={user} />
     ) : (
         //WELCOME SCREEN
-        
         <div className="App">
             <header>
                 Blackjack
@@ -47,10 +51,33 @@ export default function App() {
                     </button>
                 </div>
             </sideBar>
-            <img className="titleImg"
+            <img
+                className="titleImg"
                 src="https://www.thesportsbank.net/wp-content/uploads/2020/04/BLACK-JACK.jpg"
                 alt="mainImage"
             ></img>
         </div>
+    )
+}
+export function SignIn() {
+    const user = useAuthentication()
+    return (
+        <button
+            onClick={(event) => {
+                signInWithPopup(auth, new GoogleAuthProvider())
+
+                const userRef = db.collection('players').doc(user)
+                userRef.get().then((doc) => {
+                    if (doc.exists) {
+                        console.log('User Exists')
+                    } else {
+                        console.log('Creating User')
+                        createUser()
+                    }
+                })
+            }}
+        >
+            Sign In
+        </button>
     )
 }

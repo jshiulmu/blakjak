@@ -64,18 +64,14 @@ export function SignIn() {
     return (
         <button
             onClick={(event) => {
-                signInWithPopup(auth, new GoogleAuthProvider())
-                createUser()
                 console.log('CREATING USER')
-                // const userRef = db.collection('players').doc(user)
-                // userRef.get().then((doc) => {
-                //     if (doc.exists) {
-                //         console.log('User Exists')
-                //     } else {
-                //         console.log('Creating User')
-                //         createUser()
-                //     }
-                // })
+                signInWithPopup(auth, new GoogleAuthProvider())
+                
+                .then ((user) => {
+                    if (user) {
+                    createUser(user)
+                    }
+                })
             }}
         >
             Sign In

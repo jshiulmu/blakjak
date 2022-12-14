@@ -1,4 +1,4 @@
-import { db } from '../services/firebaseConfig'
+import { db, auth } from '../services/firebaseConfig'
 import {
     collection,
     query,
@@ -8,18 +8,26 @@ import {
     limit,
     deleteDoc,
     doc,
+    setDoc
 } from 'firebase/firestore'
+import { FirebaseError } from 'firebase/app'
 
-export async function createUser() {
+export async function createUser(user) {
     //used to be createArticle
     let wins = 0
     let losses = 0
-    const data = { wins, losses } //creates the data object (the users wins and losses)
+    
+    console.log('sucess')
+    console.log("display name: ", user)
+    let ref = doc(db, "users", user.user.displayName);
+
+    const docRef = await setDoc(ref, {
+        wins: wins,
+        totalGames: losses
+    })
 
     //adds the data object to the "players" collection of the database (db)
     //docRef is the id of the data in the database collection
-    const docRef = await addDoc(collection(db, 'players'), data)
-    return { id: docRef.id, ...data }
 }
 export async function fetchUsers() {
     //FETCHES LIST OF USERS

@@ -4,4 +4,4 @@ A fun, web-based React JS application that allows users to play blackjack agains
 
 Created by Leo Dai, Maria Dominguez, Lawrence Benitez, and Jordan Shiu
 
-Written in December, 2022
+Written in December 2022

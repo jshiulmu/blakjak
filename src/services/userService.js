@@ -36,7 +36,7 @@ export async function updateUser(user) {
     }
 
     if (userExists === false){
-        let times = 0
+        let times = 1
         console.log('CREATING USER')
         
         console.log('sucess')

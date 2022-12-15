@@ -1,4 +1,4 @@
-#Blakjak!
+# Blakjak!
 
 A fun, web-based React JS application that allows users to play blackjack against an artificially intelligent dealer! 
 

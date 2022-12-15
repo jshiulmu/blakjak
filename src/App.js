@@ -69,7 +69,7 @@ export function SignIn() {
                 
                 .then ((user) => {
                     if (user) {
-                    createUser(user)
+                        createUser(user)
                     }
                 })
             }}

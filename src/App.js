@@ -7,7 +7,7 @@ import { SignOut, useAuthentication } from '../src/services/authService'
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
 import { getDoc } from 'firebase/firestore'
 import { auth } from './services/firebaseConfig.js'
-import { createUser } from './services/userService'
+import { updateUser } from './services/userService'
 
 export default function App() {
     const user = useAuthentication()
@@ -64,12 +64,11 @@ export function SignIn() {
     return (
         <button
             onClick={(event) => {
-                console.log('CREATING USER')
                 signInWithPopup(auth, new GoogleAuthProvider())
                 
                 .then ((user) => {
                     if (user) {
-                        createUser(user)
+                        updateUser(user)
                     }
                 })
             }}

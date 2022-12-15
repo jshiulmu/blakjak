@@ -7,31 +7,37 @@ import {
     limit,
     deleteDoc,
     doc,
-    setDoc,
-    exists,
-    get
+    setDoc
 } from 'firebase/firestore'
 import { FirebaseError } from 'firebase/app'
 
-async function checkUser(user){
-    const userRef = doc(db, "users", user.user.uid);
-    userRef.get()
-    .then((docSnapshot) => {
-        if (docSnapshot.exists) {
-            return true
-        }
-        else{
-            return false
-        }
-    });
-}
-
-export async function createUser(user) {
+export async function updateUser(user) {
     //used to be createArticle
-    console.log(user)
-    if (!checkUser(user)){
-        let wins = 0
-        let losses = 0
+    var userExists = null
+    var userData = null
+
+    const snapshot = await getDocs(
+        query(collection(db, 'users'), orderBy('userName', 'desc'), limit(20))
+    )
+
+    const userMap = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }))
+
+    for (const index in userMap){
+        if(userMap[index].userName === user.user.displayName){
+            userExists = true
+            userData = userMap[index]
+        }
+    }
+    if (!userExists === true){
+        userExists = false
+    }
+
+    if (userExists === false){
+        let times = 0
+        console.log('CREATING USER')
         
         console.log('sucess')
         console.log("display name: ", user)
@@ -39,11 +45,20 @@ export async function createUser(user) {
         
         const docRef = await setDoc(ref, {
             userName: user.user.displayName,
-            wins: wins,
-            totalGames: losses
+            timesSignedIn: times
         })
-    } else if(checkUser(user)) {
+    } else if(userExists === true) {
         console.log(user.user.displayName, "  is already a user in the database")
+        let ref = doc(db, "users", user.user.uid);
+
+        console.log( userData.timesSignedIn)
+        let newTimes = userData.timesSignedIn + 1
+
+        const docRef = await setDoc(ref, {
+            userName: user.user.displayName,
+            timesSignedIn: newTimes
+        })
+
     }
 
     //adds the data object to the "players" collection of the database (db)

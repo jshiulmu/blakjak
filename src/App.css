@@ -133,7 +133,14 @@ article .body {
 }
 
 .PlayerInfo {
-    background-color:rgb(110, 156, 110);
+    background-color: rgb(110, 156, 110);
+    text-align: center;
+    font-weight: bold;
+}
+
+.DealMsg {
+    padding: 30px;
+    background-color: lightblue;
     text-align: center;
     font-weight: bold;
 }
@@ -193,7 +200,7 @@ background {
     background-color: lightcoral;
     border-radius: 50%;
     transition: 0.3s;
-} 
+}
 .playerHit:hover {
     color: #3b82f6;
     border: 3px solid #3b82f6;
@@ -223,7 +230,7 @@ background {
     border: 3px solid purple;
     border-radius: 50%;
     transition: 0.3s;
-} 
+}
 .returnButton:hover {
     color: #3b82f6;
     border: 3px solid #3b82f6;
@@ -233,7 +240,7 @@ background {
 }
 
 .Game_over_message {
-    background-color:rgb(110, 156, 110);
+    background-color: rgb(110, 156, 110);
     text-align: center;
     font-weight: bold;
 }

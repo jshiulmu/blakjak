@@ -18,9 +18,6 @@ export default function Game(user) {
     const [userStanding, setUserStanding] = useState(false)
     const [deckID, setdeckID] = useState('')
     const [gameOverMessage, setGameOverMessage] = useState('')
-    const [mustDealMessage, setMustDealMessage] = useState(
-        "Press 'Deal' to Start!!"
-    )
     let deckId_regular = ''
     let playerHand_regular = null
     let dealerHand_regular = null
@@ -391,8 +388,7 @@ export default function Game(user) {
                     }}
                 >
                     Return to Menu
-                </button>
-                <div className="DealMsg">{mustDealMessage}</div>
+                </button>{' '}
                 <div className="center">
                     {!dealerHand
                         ? null

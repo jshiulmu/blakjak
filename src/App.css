@@ -84,9 +84,13 @@ mainArticle {
 }
 
 sideBar {
-    height: 44.35vw;
+    height: 79.5%;
     padding: 15px;
     background-color: lightpink;
+}
+.titleImg {
+    height: 84.7%;
+    width: 83.73vw;
 }
 
 nav {
@@ -173,14 +177,11 @@ background {
     height: 50px;
     text-align: center;
     border: 3px solid blue;
-    background-color:green;
+    background-color: lightgreen;
     border-radius: 50%;
     transition: 0.3s;
 }
-.titleImg {
-    height: 46.3vw;
-    width: 83.73vw;
-}
+
 .playerStay {
     text-align: center;
     cursor: pointer;
@@ -189,7 +190,7 @@ background {
     height: 50px;
     text-align: center;
     border: 3px solid purple;
-    background-color: red;
+    background-color: lightcoral;
     border-radius: 50%;
     transition: 0.3s;
 } 
@@ -229,4 +230,10 @@ background {
 }
 .returnButton:active {
     background-color: black;
+}
+
+.Game_over_message {
+    background-color:rgb(110, 156, 110);
+    text-align: center;
+    font-weight: bold;
 }

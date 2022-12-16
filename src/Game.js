@@ -333,6 +333,7 @@ export default function Game(user) {
                 >
                     Return to Menu
                 </button>
+                
                 <div className="center">
                     {!dealerHand
                         ? null
@@ -373,7 +374,7 @@ export default function Game(user) {
                     {!user ? <SignIn /> : <SignOut />}
                 </header>
                 <button
-                    className="hit_button"
+                    className="playerHit"
                     onClick={(event) => {
                         fetchDeck()
                     }}
